@@ -13,16 +13,19 @@ import store from "./stores/index.js";
 import { HelmetProvider } from 'react-helmet-async';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  //   <RouterProvider router={router} />
-  // </React.StrictMode>
-  <HelmetProvider>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ShopContextProvider>
-          <App />
-        </ShopContextProvider>
-      </BrowserRouter>
-    </Provider>,
-  </HelmetProvider>
+  <React.StrictMode>
+    <HelmetProvider>
+      <Provider store={store}>
+        <BrowserRouter
+          future={{
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+          }}>
+          <ShopContextProvider>
+            <App />
+          </ShopContextProvider>
+        </BrowserRouter>
+      </Provider>
+    </HelmetProvider>
+  </React.StrictMode>
 );

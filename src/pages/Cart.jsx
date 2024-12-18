@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { FaArrowRight, FaMinus, FaPlus } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { assets } from '../assets/assets';
 const CartMenu = () => {
 
     const { currency, totalAmount, cartProducts, handleRemoveFromCart, quantityIncrement, quantityDecrement, clearAllCart, setCartMenu, cloudAPI } = useContext(ShopContext);
@@ -11,7 +12,7 @@ const CartMenu = () => {
         <div className='p-5 h-full w-full relative z-50'>
             <div className='flex justify-between items-center gap-3 p-3 cursor-pointer bg-gray-200 rounded mb-5'>
                 <p>Shopping Cart</p>
-                <img onClick={() => setCartMenu(false)} src='cross_icon.png' className="h-4" alt="Shopping Cart" />
+                <img onClick={() => setCartMenu(false)} src={assets.cross_icon} className="h-4" alt="Shopping Cart" />
             </div>
             {/*Cart Products  */}
             <div className='overflow-y-scroll pb-2 h-full w-full no-scrollbar'>
@@ -19,7 +20,7 @@ const CartMenu = () => {
                     cartProducts?.map((item, index) => (
                         <div key={index} className='py-4 gap-5 border-b flex flex-row justify-between'>
                             <div className='w-1/3'>
-                                <img src={`${cloudAPI}/image/${item.image}`} className='w-[100px] h-[100px] rounded' alt={item.name} />
+                                <img src={`${cloudAPI}/image/${item.image}`} className='w-[100px] h-[120px] rounded' alt={item.name} />
                             </div>
                             <div className='text-black w-2/3'>
                                 <p className='font-medium text-pink mb-2'>{item.name}</p>

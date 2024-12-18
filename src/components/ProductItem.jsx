@@ -10,7 +10,7 @@ const ProductItem = ({ id, image, name, price, index }) => {
     const location = useLocation();
     const isCollection = location.pathname === "/collections";
 
-    const { loading, currency, cloudAPI } = useContext(ShopContext);
+    const { loading, currency, cloudAPI, isMobile } = useContext(ShopContext);
 
     const dispatch = useDispatch();
 
@@ -25,7 +25,10 @@ const ProductItem = ({ id, image, name, price, index }) => {
         const data = { productId: id, quantity: 1 };
 
         dispatch(addToCart(data));
-        toast.success('Product Added to Cart Successfully!')
+
+        if (!isMobile) {
+            toast.success('Product Added to Cart Successfully!')
+        }
     }
 
 
@@ -49,7 +52,7 @@ const ProductItem = ({ id, image, name, price, index }) => {
                 alt={name} />
             <div className='overflow-hidden relative'>
                 <Link to={`/singleproduct/${slug}`}>
-                    <img loading="lazy" className={`rounded-t-md sm:hover:scale-125 duration-1000 transition ease-in-out w-[100%] ${isCollection ? 'h-[380px]' : 'h-[350px] lg:h-[450px]'}`} src={`${cloudAPI}/image/${image}`} alt={name} />
+                    <img loading="lazy" className={`rounded-t-md sm:hover:scale-125 duration-1000 transition ease-in-out w-[100%] ${isCollection ? 'h-[350px]' : 'h-[350px] sm:h-[450px]'}`} src={`${cloudAPI}/image/${image}`} alt={name} />
                 </Link>
             </div>
             <p className="lg:font-bold p-2 lg:px-3">{name}</p>

@@ -3,6 +3,7 @@ import React from 'react'
 import NewsLetter from '../components/NewsLetter'
 import Title from '../components/Title'
 import { Link } from 'react-router-dom'
+import { assets } from '../assets/assets'
 
 const Contact = () => {
     return (
@@ -12,7 +13,7 @@ const Contact = () => {
             </div>
             <div className="py-5 sm:flex sm:flex-row gap-16 items-center justify-center">
                 <div className="sm:w-1/2 px-2 sm:px-0 hidden sm:block">
-                    <img src='./about_img.png' alt="" />
+                    <img src={assets.about_img} alt="" />
                 </div>
                 <div className='relative w-full h-full sm:hidden'>
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1579.845936009183!2d90.36981035429673!3d23.79872935440741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c1013025176f%3A0x9d59fa9abda1c024!2sRASNA%20722%2F3!5e0!3m2!1sen!2sbd!4v1734024615061!5m2!1sen!2sbd" width={`100%`}

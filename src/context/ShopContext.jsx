@@ -8,10 +8,27 @@ export const ShopContext = createContext();
 export const ShopContextProvider = (props) => {
 
     const cloudAPI = 'https://pub-c053b04a208d402dac06392a3df4fd32.r2.dev';
-    
+
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(true);
+
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 640);
+        };
+
+        // Add event listener for resize
+        window.addEventListener("resize", handleResize);
+
+        // Cleanup the event listener
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [window.innerWidth]);
 
     const productAPI = "https://admin.glorebd.com/api/all/product/get";
 
@@ -120,7 +137,7 @@ export const ShopContextProvider = (props) => {
     }, [cartItems, cartProducts]);
 
     const value = {
-        isLoading, products, currency, delivery_fee_Inside, delivery_fee_Outside, search, setSearch, showSearch, setShowSearch, cartItems, totalQuantity, setCartMenu, cartMenu, categories, handleRemoveFromCart, quantityIncrement, quantityDecrement, clearAllCart, cartProducts, totalAmount, cloudAPI
+        isLoading, products, currency, isMobile, delivery_fee_Inside, delivery_fee_Outside, search, setSearch, showSearch, setShowSearch, cartItems, totalQuantity, setCartMenu, cartMenu, categories, handleRemoveFromCart, quantityIncrement, quantityDecrement, clearAllCart, cartProducts, totalAmount, cloudAPI
     }
 
     return (

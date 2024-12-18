@@ -1,10 +1,9 @@
-
+import React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import logo from '/nav_logo.png';
 import { Link, NavLink } from "react-router-dom";
 import { ShopContext } from '../context/ShopContext';
-import MobileBottomMenu from './MobileBottomMenu';
 import Cart from '../pages/Cart';
+import { assets } from '../assets/assets';
 const Navbar = ({ isProductPage }) => {
 
     const [visible, setVisible] = useState(false);
@@ -32,7 +31,7 @@ const Navbar = ({ isProductPage }) => {
         <header className={`top-0 left-0 right-0 bg-white z-50 transition-shadow duration-500 ${scrollNav && 'shadow-lg'} ${isProductPage ? 'sm:block hidden' : 'sticky'}`}>
             <nav className='flex justify-between items-center px-1 py-1 sm:py-2 font-medium container mx-auto'>
                 {/* logo  */}
-                <Link to='/'><img src={logo} className='w-36' alt="Logo" />
+                <Link to='/'><img src={assets.logo} className='w-36' alt="Logo" />
                 </Link>
                 {/* Nav Items  */}
                 <div className='sm:flex gap-5 hidden text-gray-500 text-sm'>
@@ -60,12 +59,12 @@ const Navbar = ({ isProductPage }) => {
                 <div className='flex items-center gap-6'>
 
                     {/* search bar */}
-                    <img onClick={() => setShowSearch(!showSearch)} src='search_icon.png' alt="search" className='w-5 cursor-pointer hidden sm:block' />
+                    <img onClick={() => setShowSearch(!showSearch)} src={assets.search_icon} alt="search" className='w-5 cursor-pointer hidden sm:block' />
 
                     {/* dropdown menu for profile and logout  */}
 
                     {/* sidebar menu  */}
-                    <img onClick={() => setVisible(true)} src="menu_icon.png" className='hidden w-5 cursor-pointer' alt="" />
+                    <img onClick={() => setVisible(true)} src={assets.menu_icon} className='hidden w-5 cursor-pointer' alt="" />
 
                     {/* Login Section  */}
                     {/* <div className='relative group hidden sm:block'>
@@ -83,7 +82,8 @@ const Navbar = ({ isProductPage }) => {
 
                     {/* shopping cart  */}
                     <div onClick={() => setCartMenu(true)} className='sm:block relative hidden cursor-pointer'>
-                        <img src='cart_icon.png' className='w-5 min-w-5' alt="" />
+                        <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
+                        {/* <FaShoppingBag size={24}/> */}
                         <span className={`inline-flex top-3 -right-3 absolute justify-center items-center bg-sky-400 rounded-full w-5 h-5 font-semibold text-md text-white ${totalQuantity > 0 && 'animate-ping'}`}></span>
                         <span className="top-3 -right-3 absolute flex justify-center items-center bg-pink rounded-full w-5 h-5 text-white text-xs">{totalQuantity}</span>
                         {/* <span className='right-[-5px] bottom-[-5px] absolute bg-pink rounded-full w-4 text-[8px] text-center text-white leading-4 aspect-square'>{totalQuantity}</span> */}
@@ -91,9 +91,9 @@ const Navbar = ({ isProductPage }) => {
                 </div>
 
                 {/* sidebar Menu*/}
-                <div className={`top-0 bottom-0 z-50 bg-white absolute transition-all sm:hidden duration-1000 w-full shadow-md h-full left-0 right-0 ${visible ? 'translate-x-0 ' : '-translate-x-full'}`}>
+                {/* <div className={`top-0 bottom-0 z-50 bg-white absolute transition-all sm:hidden duration-1000 w-full shadow-md h-full left-0 right-0 ${visible ? 'translate-x-0 ' : '-translate-x-full'}`}>
                     <MobileBottomMenu setVisible={setVisible} />
-                </div>
+                </div> */}
 
                 {/* Cart Menu  */}
                 <div className={`top-0 right-0 bottom-0 z-[100] bg-white fixed transition-all duration-1000 w-[350px] shadow-md h-full ${cartMenu ? 'translate-x-0' : 'translate-x-full'}`}>

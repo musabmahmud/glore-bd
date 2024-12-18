@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 const RelatedProductItems = ({ id, image, name, price, index }) => {
 
-    const { loading, currency, cloudAPI } = useContext(ShopContext);
+    const { loading, currency, cloudAPI, isMobile } = useContext(ShopContext);
 
     const dispatch = useDispatch();
 
@@ -23,7 +23,9 @@ const RelatedProductItems = ({ id, image, name, price, index }) => {
 
         dispatch(addToCart(data));
 
-        toast.success('Product Added to Cart Successfully!')
+        if (!isMobile) {
+            toast.success('Product Added to Cart Successfully!')
+        }
     }
 
     // Utility function
@@ -46,7 +48,7 @@ const RelatedProductItems = ({ id, image, name, price, index }) => {
                     <img src={`${cloudAPI}/image/${image}`} className={`w-[150px] h-[150px] z-[1000] absolute opacity-0 hidden invisible ${imageFly && (index % 2 == 0 ? 'flying-div mobile-related-fly-even' : 'flying-div mobile-related-fly-odd')}`}
                         onAnimationEnd={() => setimageFly(false)}
                         alt={name} />
-                    <img loading="lazy" className='rounded-t-md sm:hover:scale-125 duration-1000 transition ease-in-out w-[100%] h-[350px] lg:h-[420px]' src={`${cloudAPI}/image/${image}`} alt={name} />
+                    <img loading="lazy" className='rounded-t-md sm:hover:scale-125 duration-1000 transition ease-in-out w-[100%] h-[350px] sm:h-[420px]' src={`${cloudAPI}/image/${image}`} alt={name} />
                 </Link>
             </div>
             <p className="lg:font-bold p-2 lg:px-3">{name.slice(0, 25)}</p>

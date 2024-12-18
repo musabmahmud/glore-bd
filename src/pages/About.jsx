@@ -1,6 +1,7 @@
 import React from 'react'
 import Title from '../components/Title'
 import NewsLetter from '../components/NewsLetter'
+import { assets } from '../assets/assets'
 
 
 const About = () => {
@@ -8,7 +9,7 @@ const About = () => {
 
     <div className='mx-auto container'>
       <div className="my-0 sm:my-10 flex flex-col md:flex-row gap-16 text-center">
-        <img className='w-full md:max-w-[450px]' src='about_img.png' alt="" />
+        <img className='w-full md:max-w-[450px]' src={assets.about_img} alt="" />
         <div className="md:w-2/4 text-gray-600 px-2 lg:px-0">
           <h1 className='text-3xl text-gray-800'>Who We Are</h1>
           <p className='text-sm text-justify mb-5'>GloreBD-এ আপনাকে স্বাগতম! আমরা বাংলাদেশের একটি গর্বিত ব্র্যান্ড।

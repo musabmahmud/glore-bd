@@ -1,6 +1,5 @@
 import React from 'react'
-
-import logoFooter from '/logo2.png';
+import { assets } from '../assets/assets';
 import { Link } from 'react-router-dom';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
@@ -15,7 +14,7 @@ const Footer = () => {
                 <div className="md:flex justify-between lg:gap-8 space-y-10 lg:space-y-0 pb-10">
                     <div>
                         <Link to='/'>
-                            <img src={logoFooter} alt="logo" className='w-40' />
+                            <img src={assets.logoFooter} alt="logo" className='w-40' />
                         </Link>
                     </div>
                     <div>

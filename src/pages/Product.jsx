@@ -16,6 +16,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import toast from 'react-hot-toast';
 import { FaThreads } from 'react-icons/fa6';
+import LazyLoadVideo from '../components/LazyLoadVideo';
+import { assets } from '../assets/assets';
 
 
 const Product = () => {
@@ -33,6 +35,8 @@ const Product = () => {
         return parts[parts.length - 1]; // The last part is the ID
     };
     const productId = extractIdFromSlug(slug);
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
     const dispatch = useDispatch();
 
@@ -66,7 +70,9 @@ const Product = () => {
         const data = { productId: product, quantity: quantity };
         dispatch(addToCart(data));
 
-        toast.success('Product Added to Cart Successfully!')
+        if (!isMobile) {
+            toast.success('Product Added to Cart Successfully!')
+        }
     }
 
     useEffect(() => {
@@ -74,9 +80,8 @@ const Product = () => {
         setQuantity(1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [productId, products]);
+    }, [slug, products]);
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
     useEffect(() => {
         const handleResize = () => {
@@ -92,27 +97,13 @@ const Product = () => {
         };
     }, []);
 
-
-
-    const [data, setData] = useState(null); // For storing fetched data
     const [isDesOpen, setIsDesOpen] = useState(false); // Accordion open state
-
-    const metaTags = document.getElementsByTagName('meta');
-    for (let tag of metaTags) {
-        console.log(tag.outerHTML);
-    }
-
-    // Optionally filter specific meta tags
-    const ogTags = Array.from(metaTags).filter(tag => tag.getAttribute('property')?.startsWith('og:'));
-    console.log('Open Graph Meta Tags:', ogTags);
 
 
     return singleProduct ? (
-        <div className='container mx-auto'>
-
+        <div className='container mx-auto relative overflow-x-hidden'>
             {/* SEO META TAG  */}
             <Helmet key={slug}>
-                <meta charSet="utf-8" data-rh="true" />
                 <title data-rh="true">{singleProduct.name}</title>
                 <meta property="og:title" content={singleProduct.name} data-rh="true" />
                 <meta property="og:description" content={singleProduct.short_desc} data-rh="true" />
@@ -142,24 +133,26 @@ const Product = () => {
                                 <SwiperSlide>
                                     <ReactPlayer
                                         url={`${cloudAPI}/video/${singleProduct.video}`}
+                                        // light={<img src={`${cloudAPI}/image/${singleProduct.image}`} />}
                                         playing={true}
                                         loop={true}
                                         controls={false}
-                                        muted={true} // Mute the video
-                                        width="100%" // Ensure the player takes full width
-                                        height="100%" // Ensure the player takes full height
+                                        muted={true}
+                                        width="100%"
+                                        height="100%"
                                         className="object-cover"
-                                        // lazy load optimization
-                                        preload="none" // Only load when interacted with
+                                        preload="auto"
                                         config={{
                                             file: {
                                                 attributes: {
-                                                    preload: "none",
+                                                    preload: "auto",
                                                     autoPlay: true,
                                                 },
                                             },
                                         }}
                                     />
+                                    {/* <LazyLoadVideo videoUrl={`${cloudAPI}/video/${singleProduct.video}`} imageUrl={`${cloudAPI}/image/${singleProduct.image}`} /> */}
+
                                 </SwiperSlide>
                                 {
                                     singleProduct.product_images?.map((image, index) => (
@@ -181,11 +174,11 @@ const Product = () => {
                                     height="100%" // Ensure the player takes full height
                                     className="object-cover"
                                     // lazy load optimization
-                                    preload="none" // Only load when interacted with
+                                    preload="auto" // Only load when interacted with
                                     config={{
                                         file: {
                                             attributes: {
-                                                preload: "none",
+                                                preload: "auto",
                                                 autoPlay: true,
                                             },
                                         },
@@ -204,14 +197,14 @@ const Product = () => {
                     </div>
 
                     {/* product info  */}
-                    <div className='sticky sm:w-1/2 top-5 space-y-5 sm:px-0 px-2 sm:min-h-screen'>
+                    <div className='sticky sm:w-1/2 top-5 space-y-5 sm:px-0 px-2 lg:min-h-screen'>
                         <h1 className='lg:font-bold text-xl lg:text-3xl'>{singleProduct.name}</h1>
                         <div className='flex items-center gap-1 mt-2'>
-                            <img src='/star_icon.png' alt={`${singleProduct.name} ratings`} className='w-3 5' />
-                            <img src='/star_icon.png' alt={`${singleProduct.name} ratings`} className='w-3 5' />
-                            <img src='/star_icon.png' alt={`${singleProduct.name} ratings`} className='w-3 5' />
-                            <img src='/star_icon.png' alt={`${singleProduct.name} ratings`} className='w-3 5' />
-                            <img src='/star_icon.png' alt={`${singleProduct.name} ratings`} className='w-3 5' />
+                            <img src={assets.star_icon} alt={`${singleProduct.name} ratings`} className='w-3 5' />
+                            <img src={assets.star_icon} alt={`${singleProduct.name} ratings`} className='w-3 5' />
+                            <img src={assets.star_icon} alt={`${singleProduct.name} ratings`} className='w-3 5' />
+                            <img src={assets.star_icon} alt={`${singleProduct.name} ratings`} className='w-3 5' />
+                            <img src={assets.star_icon} alt={`${singleProduct.name} ratings`} className='w-3 5' />
                             <p className="pl-2">(122)</p>
                         </div>
                         <p className='font-medium text-3xl'>{currency} {singleProduct.price}</p>
@@ -274,11 +267,14 @@ const Product = () => {
                         {/* Share Options */}
                         <p>Share to</p>
                         <div className="flex items-center justify-between sm:justify-start gap-8 text-3xl">
-                            <Link to={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}`}
+                            <Link
+                                to={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(productUrl)}&quote=${encodeURIComponent(singleProduct.short_desc)}`}
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 <FaFacebook />
                             </Link>
+
                             <Link to={`https://www.instagram.com/?url=${encodeURIComponent(productUrl)}`}
                                 target="_blank"
                                 rel="noopener noreferrer">

@@ -4,11 +4,11 @@ import Title from './Title';
 
 const CartTotal = ({ deliveryCharge }) => {
 
-    const { currency, delivery_fee_Inside, totalAmount } = useContext(ShopContext);
+    const { currency, totalAmount } = useContext(ShopContext);
 
     return (
         <div className='w-full'>
-            <div className='flex flex-col gap-2 mt-2 text-sm'>
+            <div className='flex flex-col gap-1 sm:gap-2 sm:mt-2 text-sm'>
                 <div className="flex justify-between">
                     <p>Subtotal</p>
                     <p>{currency} {totalAmount}</p>

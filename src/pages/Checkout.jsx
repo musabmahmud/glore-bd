@@ -125,7 +125,7 @@ const Checkout = () => {
                     </div>
 
                     {/* Right Side  */}
-                    <div className="flex flex-col gap-4 sm:w-1/2 shadow p-5">
+                    <div className="flex flex-col gap-2 sm:w-1/2 shadow p-5">
                         <div className="">
                             <Title text1={'DELIVERY'} text2={'INFORMATION'} />
                             <p className='text-xs text-gray-500'>অর্ডার কনফার্ম করতে আপনার নাম, ঠিকানা, মোবাইল নাম্বার লিখে অর্ডার কনফার্ম করুন বাটনে ক্লিক করুন</p>
@@ -188,9 +188,9 @@ const Checkout = () => {
                     </div>
                 </div>
                 {/* Footer Cart Menu  */}
-                <div className="right-0 bottom-0 left-0 z-40 fixed sm:hidden bg-gradient-to-t from-gray-50 to-white shadow-lg px-6 py-4 w-full">
+                <div className="right-0 bottom-0 left-0 z-40 fixed sm:hidden bg-gradient-to-t border-gray-100 border-t-2 from-gray-50 to-white shadow-lg px-6 pt-2 pb-4 w-full">
                     <div className='pb-3'>
-                        <h2 className="text-xl font-semibold">Cart Total</h2>
+                        <h2 className="text-lg font-semibold">Cart Total</h2>
                         <CartTotal deliveryCharge={deliveryCharge} />
                     </div>
                     <button className="w-full bg-pink shadow-lg py-2 rounded-full font-medium text-center text-lg text-white">অর্ডারটি নিশ্চিত করুন</button>
